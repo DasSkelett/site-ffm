@@ -34,6 +34,10 @@ jobs:
           echo "++++++++++"
           df -h
           echo "++++++++++"
+          hash -r
           command -v clang clang-1{3..9} clang-2{0..9}
           clang --version || true
           /usr/bin/clang --version || true
+          echo "++++++++++"
+          sudo update-alternatives --query clang || true
+          sudo update-alternatives --set clang /usr/bin/clang-20 || true
