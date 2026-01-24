@@ -1,0 +1,25 @@
+---
+name: Which clang
+
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
+
+jobs:
+  build_firmware:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Maximize build space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          fetch-depth: 0
+      - name: Install build dependencies
+        run: |
+          sudo -E ./scripts/install_build_dependencies.sh
+          command -v clang clang-1{3..9} clang-2{0..9}
